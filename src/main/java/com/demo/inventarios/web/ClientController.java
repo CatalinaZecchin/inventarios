@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -32,37 +33,28 @@ public class ClientController {
 
     @GetMapping("/{id}")
     public Cliente getOne(@PathVariable Long id) {
-        /* Cliente cliente = clienteService.findOne(id);
-        return cliente; */
-
-        return new Cliente();
+        return clienteService.findOne(id);
     }
 
     @PostMapping("/create")
-    public Cliente create(@RequestBody Cliente cliente) throws Exception {
+    public void create(@RequestBody Cliente cliente) throws Exception {
         if (cliente.getName() == null) {
             throw new Exception("The client name cannot be null");
         }
-
-        /* Cliente result = clienteService.createCliente(cliente);
-        return result; */
-
-        return cliente;
+        clienteService.save(cliente);
     }
 
-    @PutMapping("/update")
-    public Cliente update(@RequestBody Cliente cliente) throws Exception {
-        if (cliente.getName() == null) {
-            throw new Exception("The client name cannot be null");
-        }
-        /* Cliente result = clienteService.update(cliente); */
-        return cliente;
+    @PutMapping("/update/{id}")
+    public void update(
+        @PathVariable("id") Long id, 
+        @RequestParam(required = false) String name,
+        @RequestParam(required = false) String photoUrl) throws Exception {
+        clienteService.update(id, name, photoUrl);
     }
 
     @DeleteMapping("/delete/{id}")
-    public Cliente delete(@PathVariable Long id) {
-        /* Cliente result = clienteService.delete(id); */
-        return new Cliente();
+    public void delete(@PathVariable Long id) {
+        clienteService.delete(id);
     }
 
 
