@@ -1,8 +1,20 @@
 package com.demo.inventarios.domain;
-
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table
 public class Producto {
+    @Id
+    @SequenceGenerator(
+        name = "producto_sequence",
+        sequenceName = "producto_sequence",
+        allocationSize = 1
+    )
+    @GeneratedValue(
+        strategy = GenerationType.AUTO,
+        generator = "producto_sequence"
+    )
     private String code;
     private String name;
     private Long stock;

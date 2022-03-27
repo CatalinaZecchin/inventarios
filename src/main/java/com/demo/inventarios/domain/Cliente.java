@@ -25,13 +25,8 @@ public class Cliente {
     private Long id;
     private String name;
 
-    public Cliente() {
-    }
 
-    public Cliente(Long id, String name, String photoURL) {
-        this.id = id;
-        this.name = name;
-        this.photoURL = photoURL;
+    public Cliente() {
     }
 
     public Cliente(String name, String photoURL) {

@@ -1,8 +1,22 @@
 package com.demo.inventarios.domain;
 
 import java.util.Objects;
+import javax.persistence.*;
 
+
+@Entity
+@Table
 public class Tienda {
+    @Id
+    @SequenceGenerator(
+        name = "tienda_sequence",
+        sequenceName = "tienda_sequence",
+        allocationSize = 1
+    )
+    @GeneratedValue(
+        strategy = GenerationType.AUTO,
+        generator = "tienda_sequence"
+    )
     private String code;
     private String name;
 

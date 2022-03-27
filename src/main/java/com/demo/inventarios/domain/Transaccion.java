@@ -2,12 +2,43 @@ package com.demo.inventarios.domain;
 
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table
 public class Transaccion {
+
+    @Id
+    @SequenceGenerator(
+        name="transaccion_sequence",
+        sequenceName = "transaccion_sequence",
+        allocationSize = 1
+    )
+    @GeneratedValue(
+        strategy = GenerationType.SEQUENCE,
+        generator = "transaccion_sequence"
+    )
     private Long id;
+
+    @OneToOne
+    @JoinColumn(unique = true)
     private Long clientId;
+    
+    @OneToOne
+    @JoinColumn(unique = true)
     private String productCode;
     private Long quantity;
     private String time;
+
+    @OneToOne
+    @JoinColumn(unique = true)
     private String tiendaCode;
 
     public Transaccion() {
@@ -15,6 +46,14 @@ public class Transaccion {
 
     public Transaccion(Long id, Long clientId, String productCode, Long quantity, String time, String tiendaCode) {
         this.id = id;
+        this.clientId = clientId;
+        this.productCode = productCode;
+        this.quantity = quantity;
+        this.time = time;
+        this.tiendaCode = tiendaCode;
+    }
+
+    public Transaccion(Long clientId, String productCode, Long quantity, String time, String tiendaCode) {
         this.clientId = clientId;
         this.productCode = productCode;
         this.quantity = quantity;
